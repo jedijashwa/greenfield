@@ -11,16 +11,18 @@
         <div>Rating: {{ book.avgReaction }} </div>
       </div>
       <div ng-if="true">
-        <div class="reactions card-action center-align">
+        <div class="reactions card-action center-align" ng-if="book.reaction !== undefined">
           <!-- uses a different step as opposed to min/max due to when angular sets value -->
           <!-- step is 25 and value is set to the 0-100 equivalent of 1-5 -->
-          <form action="#">
-            <p class="range-field">
-              <input type="range" step="25" value="{{ (book.reaction - 1) * 25 }}" ng-model="reactionSlider" class="reaction-slider"/>
+          <form action="#" class="reaction-form">
+            <div class="range-field">
+              <input type="range" step="25" value="{{ book.reactionSlider }}" ng-model="book.reactionSlider" class="reaction-slider"/><span class="thumb"></span>
               <div class="left">{{ reactions[1] }}</div>
-              <span style="align: center" ng-if="reactionSlider > 0 && reactionSlider < 100">{{ reactions[reactionSlider/25 + 1] }}</span>
+              &nbsp
+              <span class="current-reaction" ng-if="book.reactionSlider > 0 && book.reactionSlider < 100">{{ reactions[book.reactionSlider/25 + 1] }}</span>
+              &nbsp
               <div class="right">{{ reactions[5] }}</div>
-            </p>
+            </div>
           </from>
         </div>
       </div>

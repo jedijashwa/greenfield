@@ -9,8 +9,21 @@
 .book-info {
   padding: 20px;
 }
+
 .thumb {
-  
+  display: none;
+}
+
+.current-reaction {
+  align: center;
+}
+
+.reactions {
+  padding-bottom: 0px;
+}
+
+.thumb {
+  background-color: #c30000;
 }
 
 @media (min-width: 750px) {
