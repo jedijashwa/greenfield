@@ -10,16 +10,18 @@
         <div>Author: {{ book.author.name }}</div>
         <div>Rating: {{ book.avgReaction }} </div>
       </div>
-      <div ng-if="reactable">
+      <div ng-if="true">
         <div class="reactions card-action center-align">
-          <a
-            class="std-btn btn"
-            ng-repeat="reaction in reactions"
-            ng-click="setReaction($event, $index + 1)"
-            ng-class="{selected: $index + 1 === book.reaction}"
-          >
-            {{reactions[$index + 1]}}
-          </a>
+          <!-- uses a different step as opposed to min/max due to when angular sets value -->
+          <!-- step is 25 and value is set to the 0-100 equivalent of 1-5 -->
+          <form action="#">
+            <p class="range-field">
+              <input type="range" step="25" value="{{ (book.reaction - 1) * 25 }}" ng-model="reactionSlider" class="reaction-slider"/>
+              <div class="left">{{ reactions[1] }}</div>
+              <span style="align: center" ng-if="reactionSlider > 0 && reactionSlider < 100">{{ reactions[reactionSlider/25 + 1] }}</span>
+              <div class="right">{{ reactions[5] }}</div>
+            </p>
+          </from>
         </div>
       </div>
     </div>
