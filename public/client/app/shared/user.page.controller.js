@@ -1,6 +1,6 @@
 angular.module('booklist.user', [])
 
-.controller('UserController', ['$scope', 'Books','$rootScope', '$timeout', function($scope, Books, $rootScope, $timeout){
+.controller('UserController', ['$scope', 'Books','$rootScope', function($scope, Books, $rootScope){
   $scope.user = {};
   $scope.books = [];
 
@@ -22,7 +22,18 @@ angular.module('booklist.user', [])
 
   $scope.amazonResults = [];
 
-  $scope.setReaction = function (book) {
+  $scope.setReaction = function ($event, reaction) {
+    var $target = $($event.currentTarget);
+    $('.reactions').find('.selected').removeClass('selected');
+    if ($scope.reaction === reaction) {
+      $scope.reaction = 0;
+    } else {
+      $target.addClass('selected');
+      $scope.reaction = reaction;
+    }
+  };
+
+  $scope.updateReaction = function (book) {
     book.reaction = book.reactionSlider/25 + 1;
     Books.postBook({
       title: book.title,
@@ -77,13 +88,6 @@ angular.module('booklist.user', [])
     }
   };
 
-  var timer;
-  //this function sets a timer on ngKeyup
-  $scope.searchTimer = function () {
-    $timeout.cancel(timer);
-    timer = $timeout($scope.checkAmazon, 400);
-  }
-
   $scope.selectAmazonResult = function (result) {
     $scope.bookTitle = result.ItemAttributes[0].Title[0];
     $scope.authorName = result.ItemAttributes[0].Author[0];
@@ -92,9 +96,7 @@ angular.module('booklist.user', [])
       $scope.publisher = result.ItemAttributes[0].Publisher[0];
     }
     $scope.amazonUrl = result.DetailPageURL[0];
-    if (result.ItemAttributes[0].ISBN.length) {
-      $scope.ISBN = result.ItemAttributes[0].ISBN[0];
-    }
+    $scope.ISBN = result.ItemAttributes[0].ISBN[0];
 
     var imageSet = result.ImageSets[0].ImageSet[0];
     for (var i = 0; i < result.ImageSets[0].ImageSet.length; i++) {

@@ -16,7 +16,7 @@
           <!-- step is 25 and value is set to the 0-100 equivalent of 1-5 -->
           <form action="#" class="reaction-form">
             <div class="range-field">
-              <input type="range" step="25" value="{{ book.reactionSlider }}" ng-model="book.reactionSlider" class="reaction-slider" ng-mouseup="setReaction(book)"/><span class="thumb"></span>
+              <input type="range" step="25" value="{{ book.reactionSlider }}" ng-model="book.reactionSlider" class="reaction-slider" ng-mouseup="updateReaction(book)"/><span class="thumb"></span>
               <div class="left">{{ reactions[1] }}</div>
               &nbsp
               <span class="current-reaction" ng-if="book.reactionSlider > 0 && book.reactionSlider < 100">{{ reactions[book.reactionSlider/25 + 1] }}</span>
